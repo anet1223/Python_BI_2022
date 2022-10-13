@@ -58,8 +58,8 @@ def main(input_fastq, output_file_prefix, gc_bounds = (0,100), length_bounds = (
 
     # Если сохраняем файлы, вводим название в output_file_prefix
     # Пример: output_file_prefix = 'new'
+    f_pass = open(output_file_prefix + "_passed.fastq","w+")
     if save_filtered == True:
-        f_pass = open(output_file_prefix + "_passed.fastq","w+")
         f_fail = open(output_file_prefix + "_failed.fastq","w+")
 
     # Проверка две ли цифры в gc_bounds    
@@ -81,7 +81,7 @@ def main(input_fastq, output_file_prefix, gc_bounds = (0,100), length_bounds = (
             f_pass.write("\n")
             f_pass.write(f1[(f1.index(line))+2])
             f_pass.write("\n")
-        else:
+        elif save_filtered == True:
         # Запись неотобранных ридов
             f_fail.write(f1[(f1.index(line)-1)])
             f_fail.write("\n")
@@ -93,8 +93,8 @@ def main(input_fastq, output_file_prefix, gc_bounds = (0,100), length_bounds = (
             f_fail.write("\n")
     # Закрытие файлов
     f.close()
+    f_pass.close()
     if save_filtered == True:
-        f_pass.close()
         f_fail.close()
     
     
